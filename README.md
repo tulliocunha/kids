@@ -1,39 +1,49 @@
-# Globoplay Kids — Roleta (TV)
+# Globoplay Kids — Abordagem 2 (Roleta)
 
-Protótipo navegável da abordagem **Roleta** do Globoplay Kids para TV (1920×1080,
-escalado por transform). Português do Brasil, pré-leitores de 3 a 6 anos.
+Protótipo de TV (1920×1080, escalado por transform) do Globoplay Kids, versão Roleta.
+Navegação por D-pad (setas / OK / Voltar) e por clique.
 
-## Rodar
+## Testar localmente
 
-Precisa de um servidor HTTP (o arquivo carrega assets relativos):
+O arquivo carrega assets por caminho relativo, então precisa de um servidor HTTP
+(abrir o `index.html` direto do disco bloqueia os fetches).
 
-```bash
-npx serve .          # ou: python3 -m http.server
-```
+    cd pacote-roleta
+    python3 -m http.server 8000
+    # abra http://localhost:8000
 
-Abra `index.html`.
+## Subir no GitHub Pages
 
-## Publicar no GitHub Pages
-
-1. Crie o repositório e envie o conteúdo desta pasta na raiz da branch.
-2. Settings → Pages → Source: *Deploy from a branch*, branch `main`, pasta `/ (root)`.
-3. O `.nojekyll` já está incluído (necessário por causa da pasta `_ds/`).
-
-## Navegação
-
-- **Setas** movem o foco, **OK/Enter** confirma, **Esc** volta.
-- Fluxo: perfis → idade → home (leque de posters + roleta de universos) → ver tudo → player.
-- Área dos adultos atrás da conta de multiplicação.
+1. Crie um repositório e envie **o conteúdo desta pasta** na raiz do branch.
+2. Settings → Pages → Source: `main` / `/ (root)`.
+3. O `.nojekyll` já está incluído (o Jekyll ignoraria as pastas com `_`, como `_ds/`).
 
 ## Estrutura
 
-| Caminho | O que é |
-| --- | --- |
-| `index.html` | O protótipo inteiro (template + lógica) |
-| `support.js` | Runtime do componente |
-| `_ds/…` | Design system Playkit 3.0 (tokens + bundle) |
-| `icons/roleta/` | Ícones dos universos, cronômetro, seta e logo |
-| `uploads/IPs Globoplay/` | Cartazes dos títulos |
-| `uploads/Arquivo/` | Stickers (4 por universo) |
+    index.html   protótipo (uma única página, cinco telas)
+    support.js   runtime
+    _ds/         Playkit 3.0 — Globoplay Design System (tokens + bundle)
+    icons/       ícones dos universos e do seletor
+    uploads/     cartazes dos IPs, stickers, artes do menu, avatares, preview.mp4
 
-Fontes (Inter, Slackey) vêm do Google Fonts — precisa de internet na primeira carga.
+## Controles
+
+- ← / → : cartazes do universo (transborda para o universo vizinho)
+- ↑ / ↓ : alterna entre leque, roleta de universos e cabeçalho; ↓ na roleta abre o Ver tudo
+- OK / Enter : assistir, entrar no universo, abrir o card do menu
+- Esc / Backspace / Voltar : volta uma tela
+
+## Telas
+
+perfis → idade → home (roleta de universos + leque de cartazes) → ver tudo → player,
+mais o universo **Menu** (Ver tudo, Encontrar algo para assistir, Buscar).
+
+## Notas para navegador de TV
+
+- Teclas aceitas por `e.key` **e** por `keyCode` (37–40, 13, 27, 8, 10009 Tizen, 461 webOS).
+- Nenhum elemento entra na ordem de foco nativa (`tabindex` só negativo): o foco é
+  todo controlado pelo estado do protótipo, para não competir com o foco do navegador.
+- O palco reescala em `resize`/`orientationchange` e em cinco tentativas depois do load
+  (TVs relatam o viewport com atraso). Funciona em 1280×720 e 1920×1080.
+- O vídeo do quadro 16:9 só é montado se o arquivo decodificar; se a TV não tocar MP4,
+  o cartaz continua aparecendo no lugar.
