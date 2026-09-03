@@ -603,6 +603,13 @@ class Component extends DCLogic {
     window.addEventListener('keydown', this._key);
     window.addEventListener('resize', this.fit);
     setTimeout(this.fit,0); setTimeout(this.fit,300);
+    // Tizen only delivers the remote's Back key to a web app once it's registered;
+    // webOS and Android TV/Google TV send it unregistered, so no equivalent call there.
+    try {
+      if (window.tizen && window.tizen.tvinputdevice && window.tizen.tvinputdevice.registerKey) {
+        window.tizen.tvinputdevice.registerKey('Back');
+      }
+    } catch (e) {}
     this._timer = setInterval(()=>{
       this.setState(st => st.mins>0 ? {mins:st.mins-1} : {mins:0});
     }, (this.props.timerTickSeconds ?? 10)*1000);
@@ -683,8 +690,20 @@ class Component extends DCLogic {
     this.play(it.k, sub+' · '+durOf(it.k), live, live ? it.u.chans[it.i] : null);
   }
 
+  // Maps real-TV remote key events onto the keyboard keys onKey already
+  // understands. Arrow keys and Enter/OK already match the web standard on
+  // Tizen, webOS and Android TV/Google TV — only the physical Back button
+  // varies: Tizen fires keyCode 10009, LG webOS fires keyCode 461, and
+  // Android TV/Google TV WebViews commonly fire keyCode 4 (Android's
+  // KEYCODE_BACK) instead of Escape/Backspace.
+  normKey(e){
+    const BACK_CODES = [10009, 461, 4];
+    const BACK_KEYS = ['GoBack', 'XF86Back', 'BrowserBack'];
+    if (BACK_CODES.indexOf(e.keyCode) >= 0 || BACK_KEYS.indexOf(e.key) >= 0) return 'Escape';
+    return e.key;
+  }
   onKey(e){
-    const k = e.key;
+    const k = this.normKey(e);
     if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Enter',' ','Escape','Backspace'].indexOf(k)<0) return;
     e.preventDefault();
     if(this.state.spinning) this.stopSpin();
