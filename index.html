@@ -25,6 +25,8 @@
 <style>
 body{margin:0;background:#000814;overflow:hidden}
 ::-webkit-scrollbar{width:0;height:0}
+[tabindex]{outline:none}
+[tabindex]::-moz-focus-inner{border:0}
 a{color:#FFB10D}a:hover{color:#FFD37A}
 @keyframes kidsPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 @keyframes kidsBob{0%,100%{transform:translateY(0)}50%{transform:translateY(14px)}}
@@ -95,7 +97,7 @@ a{color:#FFB10D}a:hover{color:#FFD37A}
 <div style="position:absolute;left:0;right:0;top:266px;text-align:center;font-size:40px;font-weight:500;line-height:1.25;color:rgba(255,255,255,.55)">Quem vai assistir?</div>
 <div style="position:absolute;left:0;right:0;top:384px;display:flex;justify-content:center;gap:50px">
 <sc-for list="{{ profiles }}" as="p" hint-placeholder-count="4">
-<div onClick="{{ p.onClick }}" style="width:242px;display:flex;flex-direction:column;align-items:center;gap:28px;cursor:pointer">
+<div onClick="{{ p.onClick }}" tabIndex="0" data-tvfocus="{{ p.tvFocus }}" style="width:242px;display:flex;flex-direction:column;align-items:center;gap:28px;cursor:pointer">
 <div style="position:relative;width:242px;height:242px;border-radius:50%;background:{{ p.bg }};box-shadow:{{ p.ring }};overflow:hidden;display:grid;place-items:center;transition:box-shadow .18s">
 <div style="width:100%;height:100%;background-image:{{ p.img }};background-size:cover;background-position:50% 50%"></div>
 <sc-if value="{{ p.isNew }}" hint-placeholder-val="{{ false }}">
@@ -120,7 +122,7 @@ a{color:#FFB10D}a:hover{color:#FFD37A}
 </div>
 <div style="position:absolute;left:0;right:0;top:580px;display:flex;justify-content:center;gap:28px">
 <sc-for list="{{ ages }}" as="a" hint-placeholder-count="9">
-<div onClick="{{ a.onClick }}" style="width:132px;height:132px;border-radius:50%;display:grid;place-items:center;cursor:pointer;font-size:52px;font-weight:700;background:{{ a.bg }};color:{{ a.fg }};box-shadow:{{ a.ring }};transition:transform .2s;transform:{{ a.tf }}">{{ a.n }}</div>
+<div onClick="{{ a.onClick }}" tabIndex="0" data-tvfocus="{{ a.tvFocus }}" style="width:132px;height:132px;border-radius:50%;display:grid;place-items:center;cursor:pointer;font-size:52px;font-weight:700;background:{{ a.bg }};color:{{ a.fg }};box-shadow:{{ a.ring }};transition:transform .2s;transform:{{ a.tf }}">{{ a.n }}</div>
 </sc-for>
 </div>
 <div style="position:absolute;left:0;right:0;top:790px;text-align:center;font-size:26px;color:rgba(255,255,255,.4)">3 a 6 anos abre a versão sem leitura · 7 a 11 abre a versão com busca</div>
@@ -143,7 +145,7 @@ a{color:#FFB10D}a:hover{color:#FFD37A}
 </div>
 <div style="position:absolute;left:0;top:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:48px;z-index:20">
 <div style="display:flex;align-items:center;gap:20px">
-<div onClick="{{ onTopAvatar }}" title="{{ childName }}" style="width:78px;height:78px;border-radius:50%;overflow:hidden;background-color:#425FFE;background-image:{{ childImg }};background-size:cover;background-position:50% 22%;cursor:pointer;box-shadow:{{ ringAvatar }};transition:box-shadow .15s"></div>
+<div onClick="{{ onTopAvatar }}" tabIndex="0" data-tvfocus="{{ avatarTvFocus }}" title="{{ childName }}" style="width:78px;height:78px;border-radius:50%;overflow:hidden;background-color:#425FFE;background-image:{{ childImg }};background-size:cover;background-position:50% 22%;cursor:pointer;box-shadow:{{ ringAvatar }};transition:box-shadow .15s"></div>
 <div style="display:flex;align-items:center;gap:12px;height:62px;padding:0 26px;border-radius:500px;background:rgba(255,255,255,.10);font-size:26px;font-weight:400;font-variant-numeric:tabular-nums;color:{{ timeColor }}">
 <div style="width:28px;height:28px;color:{{ timeColor }};display:grid;place-items:center"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:c2pa="http://c2pa.org/manifest"><metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYToxNTEwM2QwZi1hOTE5LTQwYzgtOTAyZi03MGVhZTNjNDU1NDcAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaFeIOdSDrx7uZz1vxonkzQQAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDo5MDgyMTZiZi1jNDJjLTRiMTYtYWE0ZC04MTYyOGU5Njc3ZTNscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNoEeGf1SQTrN2yFzXB3iMfkwAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggUY4Iqv4FgXWrn/ic7g7o8Q9lYwrPrsd8QUtR5oxQc8qkZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaMgr4s0ea22iZKg12ZUOfvIAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRNAAAAAAAAAAAAAAAAAGRoYXNoWCB8c8J22naHIOGCAoa0pZUVSrdc17laJdtdgKVifAqob2RuYW1lbmp1bWJmIG1hbmlmZXN0amV4Y2x1c2lvbnOBomVzdGFydBieZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOjE1MTAzZDBmLWE5MTktNDBjOC05MDJmLTcwZWFlM2M0NTU0Ny9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOjUxNGFiZWQwLTc5NWEtNGI4Yy1hNTgxLTg4Y2FhZjIzMWY4YXJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCBRjgiq/gWBdauf+JzuDujxD2VjCs+ux3xBS1HmjFBzyqJjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggKxQFNtzvy91ivJrVNW7XfZqNochuITGXXaZpQng2sMGiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggjJzrPljbTldqzfySqt03uG8fe27GQDKLV6UXjfxcGtx0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQOr5MfkI3HtEmTfaMygdMHYiFz1O7syYEAA0ruY6hRZxAno8+VbnLSMK8cRlQLpYI3kzgdn6t5ZiHpykVd+2VPY=</c2pa:manifest></metadata>
 <path d="M21.1428 12C21.1428 6.95063 17.0498 2.85701 12.0005 2.85686C6.95103 2.85686 2.85735 6.95054 2.85735 12C2.8575 17.0493 6.95112 21.1423 12.0005 21.1423C17.0497 21.1421 21.1426 17.0492 21.1428 12ZM11.1433 6C11.1433 5.52661 11.5271 5.14286 12.0005 5.14286C12.4737 5.14301 12.8576 5.52671 12.8576 6V11.4701L16.3833 13.233C16.8067 13.4447 16.9784 13.9597 16.7667 14.3831C16.5549 14.8064 16.0399 14.9781 15.6166 14.7665L11.6171 12.7667C11.3268 12.6216 11.1435 12.3246 11.1433 12V6ZM22.8571 12C22.8569 17.996 17.9965 22.8564 12.0005 22.8566C6.00435 22.8566 1.14322 17.9961 1.14307 12C1.14307 6.00377 6.00425 1.14258 12.0005 1.14258C17.9966 1.14273 22.8571 6.00386 22.8571 12Z" fill="currentColor"></path>
@@ -159,7 +161,7 @@ a{color:#FFB10D}a:hover{color:#FFD37A}
 <sc-if value="{{ isFanUni }}" hint-placeholder-val="{{ true }}">
 <div style="position:absolute;left:960px;top:184px;width:0;height:0">
 <sc-for list="{{ fan }}" as="c" hint-placeholder-count="5">
-<div onClick="{{ c.onClick }}" style="position:absolute;left:-191px;top:0;width:382px;height:518px;cursor:pointer;transition:{{ c.trans }};transition-delay:{{ c.delay }};transform:{{ c.tf }};opacity:{{ c.op }};z-index:{{ c.z }}">
+<div onClick="{{ c.onClick }}" tabIndex="0" data-tvfocus="{{ c.tvFocus }}" style="position:absolute;left:-191px;top:0;width:382px;height:518px;cursor:pointer;transition:{{ c.trans }};transition-delay:{{ c.delay }};transform:{{ c.tf }};opacity:{{ c.op }};z-index:{{ c.z }}">
 <div style="width:100%;height:100%;animation:{{ c.arrive }}">
 <div style="position:relative;width:100%;height:100%;border-radius:26px;overflow:hidden;background-color:#0B1533;background-image:{{ c.img }};background-size:cover;background-position:center;box-shadow:{{ c.ring }};transition:box-shadow .2s">
 <sc-if value="{{ c.live }}" hint-placeholder-val="{{ false }}">
@@ -192,7 +194,7 @@ a{color:#FFB10D}a:hover{color:#FFD37A}
 </sc-if>
 
 <sc-if value="{{ isExpanded }}" hint-placeholder-val="{{ false }}">
-<div onClick="{{ onExpanded }}" style="position:absolute;left:438px;top:137px;width:1044px;height:587px;border-radius:32px;overflow:hidden;cursor:pointer;background-color:#0B1533;background-image:{{ expImg }};background-size:cover;background-position:center;box-shadow:0 0 0 5px #FFFFFF,0 30px 70px rgba(0,0,0,.6);z-index:12;animation:kidsExpand .34s cubic-bezier(.2,.8,.3,1) both">
+<div onClick="{{ onExpanded }}" tabIndex="0" data-tvfocus="{{ expandedTvFocus }}" style="position:absolute;left:438px;top:137px;width:1044px;height:587px;border-radius:32px;overflow:hidden;cursor:pointer;background-color:#0B1533;background-image:{{ expImg }};background-size:cover;background-position:center;box-shadow:0 0 0 5px #FFFFFF,0 30px 70px rgba(0,0,0,.6);z-index:12;animation:kidsExpand .34s cubic-bezier(.2,.8,.3,1) both">
 <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 36%,rgba(0,0,0,.88) 90%);pointer-events:none"></div>
 <div style="position:absolute;left:56px;right:56px;bottom:52px;display:flex;flex-direction:column;gap:16px;pointer-events:none">
 <div style="font-size:54px;font-weight:700;line-height:1.15;letter-spacing:-.01em;text-wrap:pretty">{{ expTitle }}</div>
@@ -213,7 +215,7 @@ a{color:#FFB10D}a:hover{color:#FFD37A}
 <div style="font-size:30px;font-weight:700;line-height:1.25;color:#FFFFFF">{{ uniLabel }}</div>
 </div>
 <sc-if value="{{ isTudoUni }}" hint-placeholder-val="{{ false }}">
-<div onClick="{{ onMosaic }}" style="position:absolute;left:608px;top:244px;width:704px;height:400px;cursor:pointer;transition:transform .3s cubic-bezier(.2,.8,.3,1);transform:{{ mosaicTf }}">
+<div onClick="{{ onMosaic }}" tabIndex="0" data-tvfocus="{{ mosaicTvFocus }}" style="position:absolute;left:608px;top:244px;width:704px;height:400px;cursor:pointer;transition:transform .3s cubic-bezier(.2,.8,.3,1);transform:{{ mosaicTf }}">
 <div style="width:100%;height:100%;animation:{{ mosaicArrive }}">
 <div style="width:100%;height:100%;border-radius:26px;overflow:hidden;background:rgba(255,255,255,.07);box-shadow:{{ mosaicRing }};padding:18px;box-sizing:border-box;display:flex;flex-direction:column;gap:16px">
 <div style="flex:1;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(2,1fr);gap:10px">
@@ -233,7 +235,7 @@ a{color:#FFB10D}a:hover{color:#FFD37A}
 <div style="position:absolute;left:960px;top:1540px;width:0;height:0;animation:{{ wrapAnim }}">
 <div style="position:absolute;left:0;top:0;width:0;height:0;transition:transform 2.6s cubic-bezier(.13,.71,.11,1);transform:{{ ringTf }}">
 <sc-for list="{{ dots }}" as="d" hint-placeholder-count="9">
-<div onClick="{{ d.onClick }}" style="position:absolute;left:0;top:0;width:0;height:0;cursor:pointer;transition:{{ d.trans }};transform:{{ d.tf }};opacity:{{ d.op }}">
+<div onClick="{{ d.onClick }}" tabIndex="0" data-tvfocus="{{ d.tvFocus }}" style="position:absolute;left:0;top:0;width:0;height:0;cursor:pointer;transition:{{ d.trans }};transform:{{ d.tf }};opacity:{{ d.op }}">
 <div style="position:absolute;left:{{ d.off }};top:{{ d.off }};width:{{ d.size }};height:{{ d.size }};border-radius:{{ d.rad }};display:grid;place-items:center;background:{{ d.bg }};color:{{ d.fg }};box-shadow:{{ d.ring }};transition:width .36s cubic-bezier(.2,.8,.3,1),height .36s cubic-bezier(.2,.8,.3,1),left .36s,top .36s,background .3s,box-shadow .3s">
 <sc-if value="{{ d.is_favoritos }}" hint-placeholder-val="{{ false }}">
 <div style="width:{{ d.iconPx }};height:{{ d.iconPx }};color:{{ d.fg }};display:grid;place-items:center;transition:width .36s cubic-bezier(.2,.8,.3,1),height .36s cubic-bezier(.2,.8,.3,1),color .3s"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:c2pa="http://c2pa.org/manifest"><metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTo5ZDE3YTE2Ni04OTk1LTQ0MTktYmQ0ZC00Mjc2NmYyMTc4MDEAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaCxutcUjM6c2PeSiDs9kREgAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDpmNzkwZGY3NS01ZjU0LTQ2ZjUtOTlkNS0xYjgzYzgzMTMxNGNscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNo3BJkG+bfy/lmZ+9dZuPplgAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggqZYYt/NN8wiTB+TlXtgDrC4KG0ZWNOUegIoPeome4E+kZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaELsCJYXwwPfvAQvW+BqB9oAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRNAAAAAAAAAAAAAAAAAGRoYXNoWCAv0ePM36UQyadcgzcrb7wlo4p1M+HsqjlvqsXJk37thmRuYW1lbmp1bWJmIG1hbmlmZXN0amV4Y2x1c2lvbnOBomVzdGFydBieZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOjlkMTdhMTY2LTg5OTUtNDQxOS1iZDRkLTQyNzY2ZjIxNzgwMS9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOjAxYmViNmJkLWMwOTMtNDI5YS05NTgxLTVjZmMxMDAxYzA1MnJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCCplhi3803zCJMH5OVe2AOsLgobRlY05R6Aig96iZ7gT6JjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggFsxcPn+iG6E4QKOPI9O7hMcNbgcD74fm/04l7nDFrASiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggJLpEY7QDSXmXtoXDow3pNCmK85NyGx5fhDl7i3ROaAd0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQIZDTUCI+3ZoB1qARcBIVz7dUx5xtTi2KKOX8IhIysjhKajVzbcLdPpVMefGthBPZUtplKve7TpDq3/UHvsfPEc=</c2pa:manifest></metadata>
@@ -349,7 +351,7 @@ Procurar um desenho
 <div style="font-size:30px;font-weight:700;line-height:1.25;transition:color .2s;color:{{ r.tc }}">{{ r.title }}</div>
 <div style="display:flex;gap:24px;transition:transform .46s cubic-bezier(.2,.8,.3,1);transform:{{ r.tf }}">
 <sc-for list="{{ r.cards }}" as="g" hint-placeholder-count="8">
-<div onClick="{{ g.onClick }}" style="flex:none;width:200px;display:flex;flex-direction:column;gap:10px;cursor:pointer">
+<div onClick="{{ g.onClick }}" tabIndex="0" data-tvfocus="{{ g.tvFocus }}" style="flex:none;width:200px;display:flex;flex-direction:column;gap:10px;cursor:pointer">
 <div style="position:relative;width:200px;height:288px;border-radius:18px;overflow:hidden;background:#0B1533;box-shadow:{{ g.ring }};transition:box-shadow .18s,transform .22s cubic-bezier(.2,.8,.3,1);transform-origin:50% 50%;transform:{{ g.tf }}">
 <div style="position:absolute;inset:0;background-image:{{ g.img }};background-size:cover;background-position:center"></div>
 <sc-if value="{{ g.isNew }}" hint-placeholder-val="{{ false }}">
@@ -389,7 +391,7 @@ Procurar um desenho
 <div style="height:12px;border-radius:500px;background:rgba(255,255,255,.25);overflow:hidden"><div style="height: 100%; transition: width .3s; width: {{ playPct }}; background-color: var(--red-base)"></div></div>
 <div style="display:flex;align-items:center;gap:24px">
 <sc-for list="{{ playerBtns }}" as="b" hint-placeholder-count="4">
-<div onClick="{{ b.onClick }}" style="display:flex;align-items:center;gap:16px;height:100px;padding:0 38px;border-radius:500px;cursor:pointer;background:{{ b.bg }};color:{{ b.fg }};box-shadow:{{ b.ring }};font-size:30px;font-weight:700;transition:transform .15s,box-shadow .15s;transform:{{ b.tf }}">
+<div onClick="{{ b.onClick }}" tabIndex="0" data-tvfocus="{{ b.tvFocus }}" style="display:flex;align-items:center;gap:16px;height:100px;padding:0 38px;border-radius:500px;cursor:pointer;background:{{ b.bg }};color:{{ b.fg }};box-shadow:{{ b.ring }};font-size:30px;font-weight:700;transition:transform .15s,box-shadow .15s;transform:{{ b.tf }}">
 <x-import component-from-global-scope="Playkit30GloboplayDesignSystem_c42f1d.Icon" name="{{ b.icon }}" size="40" hint-size="40px,40px"></x-import>
 {{ b.label }}
 </div>
@@ -409,7 +411,7 @@ Procurar um desenho
 </div>
 <div style="display:flex;gap:24px">
 <sc-for list="{{ gateOpts }}" as="o" hint-placeholder-count="4">
-<div onClick="{{ o.onClick }}" style="width:140px;height:96px;border-radius:500px;display:grid;place-items:center;cursor:pointer;font-size:40px;font-weight:700;background:{{ o.bg }};color:{{ o.fg }};box-shadow:{{ o.ring }};transition:box-shadow .15s">{{ o.n }}</div>
+<div onClick="{{ o.onClick }}" tabIndex="0" data-tvfocus="{{ o.tvFocus }}" style="width:140px;height:96px;border-radius:500px;display:grid;place-items:center;cursor:pointer;font-size:40px;font-weight:700;background:{{ o.bg }};color:{{ o.fg }};box-shadow:{{ o.ring }};transition:box-shadow .15s">{{ o.n }}</div>
 </sc-for>
 </div>
 <div style="font-size:26px;color:#777777">{{ gateMsg }}</div>
@@ -425,7 +427,7 @@ Procurar um desenho
 <div style="font-size:30px;font-weight:700">Tempo de tela por dia</div>
 <div style="display:flex;gap:20px">
 <sc-for list="{{ timeOpts }}" as="t" hint-placeholder-count="4">
-<div onClick="{{ t.onClick }}" style="height:72px;padding:0 36px;border-radius:500px;display:grid;place-items:center;cursor:pointer;font-size:26px;font-weight:700;background:{{ t.bg }};color:{{ t.fg }};box-shadow:{{ t.ring }};transition:box-shadow .15s">{{ t.label }}</div>
+<div onClick="{{ t.onClick }}" tabIndex="0" data-tvfocus="{{ t.tvFocus }}" style="height:72px;padding:0 36px;border-radius:500px;display:grid;place-items:center;cursor:pointer;font-size:26px;font-weight:700;background:{{ t.bg }};color:{{ t.fg }};box-shadow:{{ t.ring }};transition:box-shadow .15s">{{ t.label }}</div>
 </sc-for>
 </div>
 </div>
@@ -436,7 +438,7 @@ Procurar um desenho
 </div>
 <div style="display:flex;gap:20px;flex-wrap:wrap">
 <sc-for list="{{ uniToggles }}" as="u" hint-placeholder-count="5">
-<div onClick="{{ u.onClick }}" style="display:flex;align-items:center;gap:14px;height:72px;padding:0 28px;border-radius:500px;cursor:pointer;font-size:26px;font-weight:700;background:{{ u.bg }};color:{{ u.fg }};box-shadow:{{ u.ring }};opacity:{{ u.op }};transition:box-shadow .15s,opacity .2s">
+<div onClick="{{ u.onClick }}" tabIndex="0" data-tvfocus="{{ u.tvFocus }}" style="display:flex;align-items:center;gap:14px;height:72px;padding:0 28px;border-radius:500px;cursor:pointer;font-size:26px;font-weight:700;background:{{ u.bg }};color:{{ u.fg }};box-shadow:{{ u.ring }};opacity:{{ u.op }};transition:box-shadow .15s,opacity .2s">
 <x-import component-from-global-scope="Playkit30GloboplayDesignSystem_c42f1d.Icon" name="{{ u.icon }}" size="30" hint-size="30px,30px"></x-import>
 {{ u.name }}
 </div>
@@ -445,16 +447,16 @@ Procurar um desenho
 </div>
 <div style="display:flex;flex-direction:column;gap:20px">
 <div style="font-size:30px;font-weight:700">Canal ao vivo</div>
-<div onClick="{{ onLiveToggle }}" style="display:flex;align-items:center;gap:20px;width:fit-content;height:72px;padding:0 28px;border-radius:500px;cursor:pointer;background:rgba(255,255,255,.10);box-shadow:{{ ringLive }};transition:box-shadow .15s">
+<div onClick="{{ onLiveToggle }}" tabIndex="0" data-tvfocus="{{ liveTvFocus }}" style="display:flex;align-items:center;gap:20px;width:fit-content;height:72px;padding:0 28px;border-radius:500px;cursor:pointer;background:rgba(255,255,255,.10);box-shadow:{{ ringLive }};transition:box-shadow .15s">
 <div style="width:72px;height:40px;border-radius:500px;padding:4px;box-sizing:border-box;background:{{ liveTrack }};transition:background .2s"><div style="width:32px;height:32px;border-radius:50%;background:#FFFFFF;transition:transform .2s;transform:{{ liveKnob }}"></div></div>
 <span style="font-size:26px;font-weight:700;color:#EEEEEE">{{ liveLabel }}</span>
 </div>
 </div>
 <div style="display:flex;gap:24px;margin-top:8px">
-<div onClick="{{ onSave }}" style="border-radius:500px;cursor:pointer;box-shadow:{{ ringSave }};transition:box-shadow .15s">
+<div onClick="{{ onSave }}" tabIndex="0" data-tvfocus="{{ saveTvFocus }}" style="border-radius:500px;cursor:pointer;box-shadow:{{ ringSave }};transition:box-shadow .15s">
 <x-import component-from-global-scope="Playkit30GloboplayDesignSystem_c42f1d.ButtonTV" text-label="Voltar ao modo kids" icon-left="{{ false }}" hint-size="320px,64px"></x-import>
 </div>
-<div onClick="{{ onExitKids }}" style="height:64px;padding:0 32px;border-radius:500px;display:grid;place-items:center;cursor:pointer;background:rgba(255,255,255,.20);color:#FFFFFF;font-size:24px;font-weight:700;box-shadow:{{ ringExit }};transition:box-shadow .15s">Trocar de perfil</div>
+<div onClick="{{ onExitKids }}" tabIndex="0" data-tvfocus="{{ exitTvFocus }}" style="height:64px;padding:0 32px;border-radius:500px;display:grid;place-items:center;cursor:pointer;background:rgba(255,255,255,.20);color:#FFFFFF;font-size:24px;font-weight:700;box-shadow:{{ ringExit }};transition:box-shadow .15s">Trocar de perfil</div>
 </div>
 </div>
 </sc-if>
@@ -614,6 +616,24 @@ class Component extends DCLogic {
       this.setState(st => st.mins>0 ? {mins:st.mins-1} : {mins:0});
     }, (this.props.timerTickSeconds ?? 10)*1000);
     this.bumpIdle();
+    this.syncTvFocus();
+  }
+  // Generic browsers on Smart TVs (Tizen's "Internet" app, LG's Web Browser,
+  // Android TV/Google TV) only send D-pad key events once a real focusable
+  // DOM element has focus — otherwise the D-pad drives an on-screen mouse
+  // cursor instead. This mirrors whichever item the app's own selection
+  // state (prof/item/uni/row-col/etc.) marks with data-tvfocus="1" onto
+  // real DOM focus after every render, so the browser stays in remote/key
+  // mode and never falls back to the cursor. Runs synchronously (not via
+  // requestAnimationFrame) since React has already committed the DOM by
+  // the time these lifecycle hooks fire, and rAF can be throttled or
+  // paused entirely on a backgrounded/occluded tab.
+  componentDidUpdate(){
+    this.syncTvFocus();
+  }
+  syncTvFocus(){
+    const el = this.stageRef && this.stageRef.current && this.stageRef.current.querySelector('[data-tvfocus="1"]');
+    if(el && document.activeElement !== el) el.focus({preventScroll:true});
   }
   componentWillUnmount(){
     window.removeEventListener('keydown', this._key);
@@ -870,6 +890,7 @@ class Component extends DCLogic {
         bg: foc ? hex2rgba(u.bg,.62) : hex2rgba(u.bg,.26),
         fg: foc ? '#FFFFFF' : lighten(u.bg,.34),
         ring: (foc && arcFocus) ? '0 0 0 5px #FFFFFF' : 'none',
+        tvFocus: (foc && arcFocus && s.screen==='home') ? '1' : '0',
         onClick: ()=>{ if(d===0) this.enterUniverse(); else this.goUni(d,'first'); }
       };
     });
@@ -915,17 +936,19 @@ class Component extends DCLogic {
         titleOp: d===0 ? 1 : 0,
         live: u.id==='aovivo', chan: u.chans ? u.chans[i] : '',
         prog: u.id==='favoritos', progW: (28+i*9)+'%',
+        tvFocus: (foc && !zoomFan && s.screen==='home') ? '1' : '0',
         onClick: ()=>{ if(hidden) return; if(d===0) this.playItem(it); else { this.markMoving(); this.set({item:i, zone:'items'}); } }
       };
     });
 
     const rows = ROWS.map((title,r)=>{
-      const active = r===s.row;
+      const active = r===s.row && s.screen==='tudo';
       const cards = Array.from({length:RCOLS},(_,c)=>{
         const k = rowKey(r,c), foc = active && c===s.col, isNew=!!C[k].n;
         return { title:C[k].t, img:img(k), dur:durOf(k), isNew,
           tc: foc?'#FFFFFF':'rgba(255,255,255,.68)', tf: foc?'scale(1.06)':'scale(1)',
           ring: foc ? '0 0 0 6px #FFFFFF' : '0 0 0 2px rgba(255,255,255,.10)',
+          tvFocus: foc ? '1' : '0',
           onClick: ()=>{ this.set({row:r,col:c}); this.play(k,'Episódio 1 · '+durOf(k)); } };
       });
       return { title, cards,
@@ -942,6 +965,7 @@ class Component extends DCLogic {
       const foc=i===s.pbtn;
       return {...b, bg: foc?'#FFFFFF':'rgba(255,255,255,.20)', fg: foc?'#001033':'#FFFFFF',
         ring: foc?'0 0 0 6px rgba(255,255,255,.35)':'none', tf: foc?'scale(1.04)':'scale(1)',
+        tvFocus: foc?'1':'0',
         onClick: ()=>{ this.set({pbtn:i}); this.playerAction(i); }};
     });
 
@@ -964,6 +988,7 @@ class Component extends DCLogic {
       name:p.name, sub:p.sub, bg:p.bg, img: p.av ? AV(p.av) : (p.pic ? img(p.pic) : 'none'), isNew: p.kind==='new', icon: p.icon || '',
       tf: i===s.prof ? 'scale(1.08)' : 'scale(1)',
       ring: i===s.prof ? RING : '0 0 0 3px rgba(255,255,255,.14)',
+      tvFocus: i===s.prof ? '1' : '0',
       onClick: ()=>{ if(i!==s.prof){ this.focusProf(i); } else { this.pickProfile(i); } }
     }));
     const ages = [3,4,5,6,7,8,9,10,11].map((v,i)=>({
@@ -971,22 +996,24 @@ class Component extends DCLogic {
       bg: i===s.ageIdx?'#FFB10D':'rgba(255,255,255,.12)',
       fg: i===s.ageIdx?'#001033':'#FFFFFF',
       ring: i===s.ageIdx?RING_S:'none',
+      tvFocus: i===s.ageIdx?'1':'0',
       onClick: ()=>this.set({ageIdx:i, screen:'home', zone:'items', uni:0, item:0})
     }));
     const gateOpts=[18,21,24,27].map((v,i)=>({
       n:v, bg: i===s.gateIdx?'#FFFFFF':'rgba(255,255,255,.14)', fg: i===s.gateIdx?'#191919':'#FFFFFF',
       ring: i===s.gateIdx?'0 0 0 4px rgba(255,255,255,.3)':'none',
+      tvFocus: i===s.gateIdx?'1':'0',
       onClick: ()=>{ this.set({gateIdx:i}); this.tryGate(i); }
     }));
     const timeOpts=TIMES.map((label,i)=>{
       const on=i===s.timeSel, foc=s.gateOk&&s.prow===0&&s.pcol===i;
       return {label, bg:on?'#FFFFFF':'rgba(255,255,255,.14)', fg:on?'#191919':'#EEEEEE',
-        ring: foc?'0 0 0 4px #FFFFFF':'none', onClick:()=>this.set({prow:0,pcol:i,timeSel:i,mins:LIMITS[i]||0})};
+        ring: foc?'0 0 0 4px #FFFFFF':'none', tvFocus: foc?'1':'0', onClick:()=>this.set({prow:0,pcol:i,timeSel:i,mins:LIMITS[i]||0})};
     });
     const uniToggles=UNIS.slice(1,6).map((x,i)=>{
       const off=!!s.hidden[x.id], foc=s.gateOk&&s.prow===1&&s.pcol===i;
       return {name:x.name, icon:x.icon, bg: off?'rgba(255,255,255,.08)':hex2rgba(x.bg,.9), fg: off?'#888888':x.fg,
-        op: off?.45:1, ring: foc?'0 0 0 4px #FFFFFF':'none',
+        op: off?.45:1, ring: foc?'0 0 0 4px #FFFFFF':'none', tvFocus: foc?'1':'0',
         onClick:()=>{ const h={...s.hidden}; h[x.id]=!h[x.id]; this.set({prow:1,pcol:i,hidden:h,uni:0}); }};
     });
 
@@ -1027,6 +1054,7 @@ class Component extends DCLogic {
       expDur: its[s.item] ? durOf(its[s.item].k) : '',
       expNew: !!(its[s.item] && C[its[s.item].k].n),
       onExpanded: ()=>{ const it=its[s.item]; if(it) this.playItem(it); },
+      expandedTvFocus: '1',
       wheelPointer: hex2rgba(u.bg,.92),
       setaAnim: s.spinning
         ? 'kidsSetaTick .16s cubic-bezier(.3,.1,.5,1) infinite'
@@ -1061,11 +1089,13 @@ class Component extends DCLogic {
       mosaicRing: itemFocus ? '0 0 0 8px #FFFFFF, 0 26px 60px rgba(0,0,0,.55)' : '0 0 0 3px rgba(255,255,255,.20), 0 20px 46px rgba(0,0,0,.5)',
       mosaicArrive: (M2 && s.uniTick>0) ? `${arriveName} .5s cubic-bezier(.22,1.1,.34,1) both` : 'none',
       onMosaic: ()=>this.set({screen:'tudo', row:0, col:0}),
+      mosaicTvFocus: (itemFocus && s.screen==='home') ? '1' : '0',
       wrapAnim: s.wrapTick>0 ? `${s.wrapTick%2?'kidsWrapA':'kidsWrapB'} .6s cubic-bezier(.2,.9,.3,1) both` : 'none',
       titleWrapAnim: s.wrapTick>0 ? `${s.wrapTick%2?'kidsTitleWrapA':'kidsTitleWrapB'} .6s cubic-bezier(.2,.9,.3,1) both` : 'none',
       timeLabel: limit===null ? 'Sem limite' : Math.floor(s.mins/60)+'h'+pad2(s.mins%60)+'m',
       timeColor: (limit!==null && s.mins<=5) ? '#FFB10D' : 'rgba(255,255,255,.85)',
       ringAvatar: s.zone==='top' ? RING_S : 'none',
+      avatarTvFocus: (s.zone==='top' && s.screen==='home') ? '1' : '0',
       onTopAvatar: ()=>this.set({screen:'perfis'}),
       idle:s.idle,
       rows, onTudoBack:()=>this.set({screen:'home', zone:'arc'}),
@@ -1080,9 +1110,12 @@ class Component extends DCLogic {
       liveKnob: s.live ? 'translateX(32px)' : 'translateX(0)',
       liveLabel: s.live ? 'Ligado' : 'Desligado',
       ringLive: (s.gateOk&&s.prow===2) ? '0 0 0 4px #FFFFFF' : 'none',
+      liveTvFocus: (s.gateOk&&s.prow===2) ? '1' : '0',
       onLiveToggle: ()=>this.set({prow:2,pcol:0,live:!s.live}),
       ringSave: (s.gateOk&&s.prow===3&&s.pcol===0) ? '0 0 0 6px #FFFFFF' : 'none',
+      saveTvFocus: (s.gateOk&&s.prow===3&&s.pcol===0) ? '1' : '0',
       ringExit: (s.gateOk&&s.prow===3&&s.pcol===1) ? '0 0 0 6px #FFFFFF' : 'none',
+      exitTvFocus: (s.gateOk&&s.prow===3&&s.pcol===1) ? '1' : '0',
       onSave: ()=>this.set({screen:'home',zone:'items',uni:0,item:0}),
       onExitKids: ()=>this.set({screen:'perfis'})
     };
