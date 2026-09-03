@@ -306,6 +306,22 @@ a{color:#FFB10D}a:hover{color:#FFD37A}
 <path d="M20 1.76942C21.2318 1.76953 22.2306 2.76836 22.2307 4.00017L22.2307 9.00031C22.2307 10.2323 21.2319 11.2309 20 11.2311L14.9999 11.2311C13.7678 11.2311 12.7691 10.2323 12.7691 9.00031L12.7691 4.00017C12.7693 2.7683 13.7679 1.76942 14.9999 1.76942L20 1.76942Z" fill="currentColor"></path>
 </svg></div>
 </sc-if>
+<sc-if value="{{ d.is_aovivo }}" hint-placeholder-val="{{ false }}">
+<div style="width:{{ d.iconPx }};height:{{ d.iconPx }};color:{{ d.fg }};display:grid;place-items:center;transition:width .36s cubic-bezier(.2,.8,.3,1),height .36s cubic-bezier(.2,.8,.3,1),color .3s"><svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_4258_1190)">
+<path d="M4.05393 4.06365C4.53429 3.58273 5.31366 3.58204 5.79458 4.06239C6.27548 4.54275 6.27575 5.32213 5.79542 5.80305C4.15316 7.44725 3.23073 9.67629 3.23068 12.0002C3.23072 14.3241 4.15308 16.5535 5.79542 18.1977C6.27566 18.6786 6.27532 19.4576 5.79458 19.938C5.31366 20.4182 4.53426 20.418 4.05393 19.9371C1.95057 17.8313 0.768945 14.9765 0.76891 12.0002C0.768956 9.02395 1.95067 6.1694 4.05393 4.06365Z" fill="currentColor"></path>
+<path d="M18.2047 4.06239C18.6857 3.58204 19.465 3.58273 19.9454 4.06365C22.0487 6.16941 23.2304 9.0239 23.2304 12.0002C23.2304 14.9765 22.0487 17.8313 19.9454 19.9371C19.465 20.4179 18.6856 20.4183 18.2047 19.938C17.724 19.4576 17.7238 18.6786 18.2039 18.1977C19.8462 16.5535 20.7686 14.3241 20.7686 12.0002C20.7686 9.67625 19.8462 7.44726 18.2039 5.80305C17.7236 5.32216 17.7239 4.54276 18.2047 4.06239Z" fill="currentColor"></path>
+<path d="M6.88149 6.89163C7.36173 6.4106 8.1411 6.41015 8.62215 6.89038C9.10319 7.37061 9.10405 8.14998 8.62382 8.63103C7.73131 9.52515 7.22975 10.7368 7.22971 12.0002C7.22974 13.2636 7.73122 14.4756 8.62382 15.3697C9.10402 15.8508 9.10319 16.6302 8.62215 17.1104C8.14108 17.5905 7.36168 17.5897 6.88149 17.1087C5.52827 15.7531 4.76839 13.9156 4.76835 12.0002C4.7684 10.0847 5.52826 8.24726 6.88149 6.89163Z" fill="currentColor"></path>
+<path d="M15.3772 6.89038C15.8582 6.41015 16.6376 6.4106 17.1178 6.89163C18.4711 8.24727 19.2309 10.0847 19.231 12.0002C19.2309 13.9156 18.471 15.7531 17.1178 17.1087C16.6376 17.5896 15.8582 17.5905 15.3772 17.1104C14.8962 16.6302 14.8954 15.8508 15.3755 15.3697C16.2681 14.4756 16.7696 13.2636 16.7696 12.0002C16.7696 10.7368 16.2681 9.52516 15.3755 8.63103C14.8953 8.15002 14.8962 7.37062 15.3772 6.89038Z" fill="currentColor"></path>
+<path d="M11.9997 8.76956C13.7839 8.76956 15.2302 10.2159 15.2303 12.0002C15.2302 13.7844 13.7839 15.2312 11.9997 15.2312C10.2154 15.2311 8.76912 13.7844 8.76905 12.0002C8.76915 10.216 10.2155 8.76962 11.9997 8.76956Z" fill="currentColor"></path>
+</g>
+<defs>
+<clipPath id="clip0_4258_1190">
+<rect width="24" height="24" fill="white"></rect>
+</clipPath>
+</defs>
+</svg></div>
+</sc-if>
 <sc-if value="{{ d.noSvg }}" hint-placeholder-val="{{ true }}">
 <x-import component-from-global-scope="Playkit30GloboplayDesignSystem_c42f1d.Icon" name="{{ d.icon }}" size="{{ d.glyphPx }}" hint-size="48px,48px"></x-import>
 </sc-if>
@@ -501,7 +517,7 @@ const UNIS = [
   {id:'cineminha',svg:'cinema.svg',name:'Cineminha em casa',bg:'#9858CA',fg:'#FFFFFF',icon:'KidsPopcorn',disc:'04-disco-magenta.png',ptr:'04-ponteiro-magenta.png',keys:['arca','lorax','pet','amigao','dpaportal','senninha','sitio01']},
   {id:'herois',svg:'herois.svg',name:'Heróis e heroínas',bg:'#5B6AFF',fg:'#FFFFFF',icon:'KidsAction',disc:'05-disco-azul.png',ptr:'05-ponteiro-azul.png',keys:['mirac','dpaportal','dpamini','genios','queima','monica','senninha']},
   {id:'maluco',name:'Canal Maluco',bg:'#EFA82D',fg:'#001033',icon:'BasicRate',pic:'uploads/noun-kawaii-monster-8172092.png',rainbow:true,secret:true,disc:'01-disco-louco.png',ptr:'00-ponteiro-louco.png',selAbs:1,keys:['arca','mirac','coco','senninha','genios','ieti','sitio12']},
-  {id:'aovivo',name:'Ao vivo',bg:'#F03846',fg:'#FFFFFF',icon:'KidsLive',disc:'03-disco-vermelho.png',ptr:'03-ponteiro-vermelho.png',pic:'uploads/noun-live-8298461.png',keys:['monica','coco','dpaportal','mirac','vovo'],chans:['Gloob','Gloobinho','DPA','Miraculous','Família Toda']}
+  {id:'aovivo',svg:'aovivo.svg',name:'Ao vivo',bg:'#F03846',fg:'#FFFFFF',icon:'KidsLive',disc:'03-disco-vermelho.png',ptr:'03-ponteiro-vermelho.png',pic:'uploads/noun-live-8298461.png',keys:['monica','coco','dpaportal','mirac','vovo'],chans:['Gloob','Gloobinho','DPA','Miraculous','Família Toda']}
 ,
   {id:'tudo',svg:'menu.svg',name:'Menu',bg:'#959FBA',fg:'#001033',icon:'NavigationModule',disc:'07-disco-cinza.png',ptr:'07-ponteiro-cinza.png',pic:'uploads/noun-many-menu-3632977.png',keys:[]}
 ];
@@ -876,6 +892,7 @@ class Component extends DCLogic {
         icon:p.icon,
         is_favoritos: p.id==='favoritos', is_comida: p.id==='comida', is_bichos: p.id==='bichos',
         is_cineminha: p.id==='cineminha', is_herois: p.id==='herois', is_tudo: p.id==='tudo',
+        is_aovivo: p.id==='aovivo',
         noSvg: !p.svg,
         iconPx: Math.round(sz*.46)+'px',
         size: sz+'px', off: (-sz/2)+'px', rad: '26px', glyphPx: Math.round(sz*.42),
